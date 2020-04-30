@@ -1,4 +1,4 @@
-/*------------------Trie Data Structure----------------------------------*/
+/*------------------Tree Data Structure----------------------------------*/
 /*-------------Implimented for search a word in dictionary---------------*/
 
 /*-----character - 97 used for get the character from the ASCII value-----*/
@@ -10,20 +10,20 @@
 
 #define ALPHABET_SIZE 26
 
-/*--Node in the Trie--*/
-typedef struct TrieNode
+/*--Node in the Tree--*/
+typedef struct treeNode
 {
-    struct TrieNode *children[ALPHABET_SIZE];
+    struct treeNode *children[ALPHABET_SIZE];
     char character;
     bool isEndOfWord;
     
-} TrieNode;
+} treeNode;
 
 /*--Create new node--*/
-TrieNode *createTrieNode() 
+treeNode *createTrieNode() 
 {	
-	TrieNode *node;
-    node = malloc(sizeof(TrieNode));
+	treeNode *node;
+    node = malloc(sizeof(treeNode));
 	node->isEndOfWord = false;
     int i = 0;
     while(i<ALPHABET_SIZE){
@@ -33,8 +33,8 @@ TrieNode *createTrieNode()
     return node; 
 }
 
-/*--Insert new word to Trie--*/
-void insert(TrieNode *root,char *word) 
+/*--Insert new word to tree--*/
+void insert(treeNode *root,char *word) 
 {
 	/*----Addition of the word done by recurcively----*/
 	
@@ -44,8 +44,8 @@ void insert(TrieNode *root,char *word)
 		char character = *word;
 		if(root->children[character-97] == NULL)
 		{
-			TrieNode *node = NULL;
-			node = createTrieNode();
+			treeNode *node = NULL;
+			node = createtreeNode();
 			node->character = character;
 			root->children[character-97] = node;
 		}
@@ -59,10 +59,10 @@ void insert(TrieNode *root,char *word)
 	return;
 }
 
-/*--Search a word in the Trie--*/
-TrieNode *search( TrieNode *root, char *word)
+/*--Search a word in the tree--*/
+treeNode *search( TrieNode *root, char *word)
 {
-	TrieNode *temp;
+	treeNode *temp;
 	while(*word != '\0')
 	{
 		char character = *word;
@@ -93,7 +93,7 @@ void printArray(char chars[], int len)
 }
 
 /*---Return all the related words------*/
-void printPathsRecur(TrieNode* node, char prefix[], int filledLen) 
+void printPathsRecur(treeNode* node, char prefix[], int filledLen) 
 {
 	  if (node==NULL) return;
 
@@ -112,10 +112,10 @@ void printPathsRecur(TrieNode* node, char prefix[], int filledLen)
 	  }
 }
 
-/*--Travel through the Trie and return words from it--*/
-void traverse(char prefix[], TrieNode *root) 
+/*--Travel through the tree and return words from it--*/
+void traverse(char prefix[], treeNode *root) 
 {
-    TrieNode *temp = NULL;
+    treeNode *temp = NULL;
     temp = search(root,prefix);
     int j=0;
     while(prefix[j]!='\0')
@@ -159,9 +159,9 @@ int main()
     }
 
 
-    //Push the words in to Trie 
-    TrieNode *root = NULL;
-    root = createTrieNode();
+    //Push the words in to tree 
+    treeNode *root = NULL;
+    root = createtreeNode();
     int i;
     for(i=0;i<NUMBER_OF_WORDS;i++)
     {
@@ -176,7 +176,7 @@ int main()
         printf("\n==========================================================\n");
         printf("\n********************* Possible Words ********************\n");
  
-       //Find the word through the Trie
+       //Find the word through the tree
         traverse(str,root);
 
         printf("\n==========================================================\n");
